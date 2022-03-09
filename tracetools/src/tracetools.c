@@ -83,6 +83,26 @@ void TRACEPOINT(
 }
 
 void TRACEPOINT(
+  rcl_publish,
+  const void * publisher_handle,
+  const void * message)
+{
+  CONDITIONAL_TP(
+    rcl_publish,
+    publisher_handle,
+    message);
+}
+
+void TRACEPOINT(
+  rmw_publish,
+  const void * message)
+{
+  CONDITIONAL_TP(
+    rmw_publish,
+    message);
+}
+
+void TRACEPOINT(
   rcl_subscription_init,
   const void * subscription_handle,
   const void * node_handle,
@@ -119,6 +139,30 @@ void TRACEPOINT(
     rclcpp_subscription_callback_added,
     subscription,
     callback);
+}
+
+void TRACEPOINT(
+  rmw_take,
+  const void * rmw_subscription_handle,
+  const void * message,
+  int64_t source_timestamp,
+  const bool taken)
+{
+  CONDITIONAL_TP(
+    rmw_take,
+    rmw_subscription_handle,
+    message,
+    source_timestamp,
+    taken);
+}
+
+void TRACEPOINT(
+  rcl_take,
+  const void * message)
+{
+  CONDITIONAL_TP(
+    rcl_take,
+    message);
 }
 
 void TRACEPOINT(

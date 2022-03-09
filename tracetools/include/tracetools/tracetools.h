@@ -69,6 +69,32 @@ DECLARE_TRACEPOINT(
   const char * topic_name,
   const size_t queue_depth)
 
+
+/// `rcl_publish`
+/**
+ * Message publication.
+ * Links a `rcl_publisher_t` handle to a pointer to
+ * a message being published at the `rcl` level.
+ *
+ * \param[in] publisher_handle pointer to the publisher's `rcl_publisher_t` handle
+ * \param[in] message pointer to the message being published
+ */
+DECLARE_TRACEPOINT(
+  rcl_publish,
+  const void * publisher_handle,
+  const void * message)
+
+/// `rmw_publish`
+/**
+ * Message publication.
+ * Notes the pointer to the message being published at the `rmw` level.
+ *
+ * \param[in] message pointer to the message being published
+ */
+DECLARE_TRACEPOINT(
+  rmw_publish,
+  const void * message)
+
 /**
  * tp: rcl_subscription_init
  */
@@ -95,6 +121,36 @@ DECLARE_TRACEPOINT(
   rclcpp_subscription_callback_added,
   const void * subscription,
   const void * callback)
+
+/// `rmw_take`
+/**
+ * Message taking.
+ * Links a `rmw_subscription_t` handle to a pointer
+ * to a message being taken at the `rmw` level.
+ *
+ * \param[in] rmw_subscription_handle pointer to the subscription's `rmw_subscription_t` handle
+ * \param[in] message pointer to the message being taken
+ * \param[in] source_timestamp the source timestamp of the received message,
+ *  or 0 (if no message or no info)
+ * \param[in] taken whether a message was taken
+ */
+DECLARE_TRACEPOINT(
+  rmw_take,
+  const void * rmw_subscription_handle,
+  const void * message,
+  int64_t source_timestamp,
+  const bool taken)
+
+/// `rcl_take`
+/**
+ * Message taking.
+ * Notes the pointer to the message being taken at the `rcl` level.
+ *
+ * \param[in] message pointer to the message being taken
+ */
+DECLARE_TRACEPOINT(
+  rcl_take,
+  const void * message)
 
 /**
  * tp: rcl_service_init
